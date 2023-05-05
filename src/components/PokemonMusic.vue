@@ -1,28 +1,28 @@
-<script setup>
+<script>
 import tracks from "../assets/audio/tracks";
 
-const props = defineProps({
-  pokedexScreen: Boolean,
-  currentTrackIndex: Number,
-  darkView: Boolean,
-});
-
-const emits = defineEmits(["setDarkView"]);
-
-// const formatTracks = tracks.map((track, index) => {
-//   const info = Object.entries(track);
-//   return `<div class="currentTrackIndex === index ? 'selected' : ''" key="index">{{info[0][0]}}</div>`;
-// });
+export default {
+  name: "PokemonMusic",
+  computed: {
+    pokemonView() {
+      return this.$store.state.pokemonView;
+    },
+  },
+  mounted() {
+    console.log("music mounted");
+    console.log(this.pokemonView);
+  },
+};
 </script>
 
 <template>
-  <div v-if="pokedexScreen === false">
+  <div v-if="pokemonView === false">
     <div
       v-for="(url, name, index) in tracks"
       :key="index"
       :class="currentTrackIndex === index ? 'selected' : ''"
     >
-      {{ name }}
+      {{ name }} Hello
     </div>
   </div>
 </template>

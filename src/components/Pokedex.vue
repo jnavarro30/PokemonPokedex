@@ -1,181 +1,249 @@
-<script setup>
-import { ref } from "vue";
+<script>
 import axios from "axios";
-import PokedexScreen from "./PokedexScreen.vue";
-import MusicScreen from "./MusicScreen.vue";
+import PokemonData from "./PokemonData.vue";
+import PokemonMusic from "./PokemonMusic.vue";
 
-let pokedexScreen = ref(true);
-let pokemonParam = ref(1);
-let pokemonInfo = ref({});
-let currentTrack = ref("");
-let currentTrackIndex = ref(0);
-let isPlaying = ref(false);
-let classicView = ref(false);
-let darkView = ref(false);
+export default {
+  components: {
+    PokemonData,
+    PokemonMusic,
+  },
+  computed: {
+    pokemonView() {
+      return this.$store.state.pokemonView;
+    },
+    pokemonParam() {
+      return this.$store.state.pokemonParam;
+    },
+    pokemonInfo() {
+      return this.$store.state.pokemonInfo;
+    },
+    classicView() {
+      return this.$store.state.classicView;
+    },
+    darkView() {
+      return this.$store.state.darkView;
+    },
+  },
+  methods: {
+    setPokemonView() {
+      this.$store.commit("setPokemonView");
+    },
+    setPokemonParam(param) {
+      this.$store.dispatch("setPokemonParam", param);
+      this.fetchPokemon();
+    },
+    setPokemonInfo(info) {
+      this.$store.dispatch("setPokemonInfo", info);
+    },
+    setClassicView() {
+      this.$store.commit("setClassicView");
+    },
+    setDarkView() {
+      this.$store.commit("setDarkView");
+    },
+    redBtn() {
+      this.$store.commit("redBtn");
+    },
+    async fetchPokemon() {
+      try {
+        let body = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${this.$store.state.pokemonParam}`
+        );
+        let pokemon = body.data;
+        let { id, name } = pokemon;
+        let classicSprite = pokemon.sprites.front_default;
+        let sprite = pokemon.sprites.other.dream_world.front_default;
 
-const setPokedexScreen = () => (pokedexScreen.value = !pokedexScreen.value);
-const setPokemonParam = (num) => (pokemonParam.value = num);
-const setPokemonInfo = (obj) => (pokemonParam.value = obj);
-const setCurrentTrack = (str) => (currentTrack.value = str);
-const setCurrentTrackIndex = (num) => (currentTrackIndex.value = num);
-const setIsPlaying = (bool) => (isPlaying.value = bool);
-const setClassicView = () => (classicView.value = !classicView.value);
-const setDarkView = () => (darkView.value = !darkView.value);
-
-const getPokemon = async () => {
-  try {
-    let url = `https://pokeapi.co/api/v2/pokemon/${pokemonParam.value}`;
-    let body = await axios.get(url);
-    let pokemon = body.data;
-    let { id, name } = pokemon;
-    let sprite = classicView
-      ? pokemon.sprites.front_default
-      : pokemon.sprites.other.dream_world.front_default;
-
-    setPokemonInfo({
-      id,
-      name,
-      sprite,
-    });
-  } catch (err) {
-    console.error(err);
-    return;
-  }
+        this.setPokemonInfo({
+          id,
+          name,
+          classicSprite,
+          sprite,
+        });
+      } catch (err) {
+        console.error(err);
+        return;
+      }
+    },
+  },
+  mounted() {
+    this.fetchPokemon();
+  },
 };
-
-getPokemon();
-
-const handleOnKeyDown = (e) => {
-  switch (e.which) {
-    case 37:
-      arrowBtns("left");
-      break;
-    case 40:
-      arrowBtns("bottom");
-      break;
-    case 38:
-      arrowBtns("up");
-      break;
-    case 39:
-      arrowBtns("right");
-      break;
-    default:
-      return;
-  }
-  //    document.getElementsByClassName("pokedex")[0].focus()
-  ref("pokedex")[0].focus();
-};
-
-// const setDarkView  = () => {
-//     darkView = !darkView
-// }
 </script>
 
 <template>
-  <div ref="pokedex" class="pokedex" tabIndex="1" @keydown="handleOnKeyDown">
-    <PokedexScreen
-      :pokedexScreen="pokedexScreen"
-      :pokemonParam="pokemonParam"
-      :pokemonInfo="pokemonInfo"
-      :darkView="darkView"
-      @setPokedexScreen="setPokedexScreen"
-      @setDarkView="
-        {
-          setDarkView;
-        }
-      "
+  <div class="pokedex" tabIndex="1" @keydown="handleOnKeyDown">
+    <div
+      v-if="pokemonView === true"
+      class="pokedex-screen"
+      :class="darkView ? 'dark-view' : ''"
+      @click="setDarkView"
+    >
+      <PokemonData />
+    </div>
+    <div
+      v-else
+      class="music-screen"
+      :class="darkView ? 'dark-view' : ''"
+      @click="setDarkView"
+    >
+      <PokemonMusic />
+    </div>
+    <div
+      className="up-btn btn"
+      @click="setPokemonParam(pokemonParam + 1)"
+    ></div>
+    <div
+      className="right-btn btn"
+      @click="setPokemonParam(pokemonParam + 1)"
+    ></div>
+    <div
+      className="bottom-btn btn"
+      @click="setPokemonParam(pokemonParam - 1)"
+    ></div>
+    <div
+      className="left-btn btn"
+      @click="setPokemonParam(pokemonParam - 1)"
+    ></div>
+    <div className="red-btn btn" @click="redBtn"></div>
+    <div className="blue-btn btn" @click="blueBtn"></div>
+    <div className="green-btn btn" @click="setClassicView"></div>
+    <div class="orange-btn btn" @click="setPokemonView"></div>
+    <div className="speaker-btn btn" @click="speakerBtn"></div>
+    <input
+      className="input-btn btn"
+      type="text"
+      name="input"
+      value="{userInput}"
+      placeholder="Name/ID"
+      onChange="{handleOnChange}"
+      autoComplete="off"
     />
-    <MusicScreen
-      :pokedexScreen="pokedexScreen"
-      :currentTrackIndex="currentTrackIndex"
-      :darkView="darkView"
-    />
-    <!-- <div className='up-btn btn' onClick={() => arrowBtns('up')}></div>
-        <div className='right-btn btn' onClick={() => arrowBtns('right')}></div>
-        <div className='bottom-btn btn' onClick={() => arrowBtns('bottom')}></div>
-        <div className='left-btn btn' onClick={() => arrowBtns('left')}></div>
-        <div className='red-btn btn' onClick={() => redBtn()}></div>
-        <div className='blue-btn btn' onClick={blueBtn}></div>
-        <div className='green-btn btn' onClick={() => setClassicMode(!classicMode)}></div> -->
-    <div class="orange-btn btn" @click="setPokedexScreen"></div>
-    <!-- <div className='speaker-btn btn' onClick={speakerBtn}></div>
-        <input className='input-btn btn' type='text' name='input' value={userInput} placeholder='Name/ID' onChange={handleOnChange} onKeyPress={handleOnKeyPress} autoComplete="off"/> -->
   </div>
 </template>
 
 <style scoped>
 .pokedex {
   position: relative;
-  height: 90%;
-  width: 90%;
+  height: 98%;
+  width: 96%;
   max-width: 600px;
   background-image: url("../assets/images/pokedex.png");
   background-size: 100% 100%;
   border: 5px solid black;
   border-radius: 4%;
 }
+::placeholder {
+  font-family: "Pokemon Solid", sans-serif;
+}
+
+.pokedex-screen {
+  border: 1px solid red;
+  transform: translate(11%, 82.5%);
+  height: 32%;
+  width: 76.6%;
+  background-color: rgba(37, 169, 245, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.music-screen {
+  transform: translate(10%, 80%);
+  height: 35%;
+  width: 83%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+.dark-view {
+  background-color: black;
+  color: #ffffff;
+}
 /* CONTROLS */
 .btn {
   position: absolute;
+  z-index: 100;
+  background: black;
 }
 
 .up-btn {
   height: 8%;
-  width: 10%;
-  transform: translate(750%, 490%);
+  width: 12%;
+  transform: translate(620%, 520%);
+}
+.bottom-btn {
+  height: 8%;
+  width: 12%;
+  transform: translate(620%, 630%);
 }
 
 .right-btn {
-  height: 5%;
+  height: 7%;
   width: 12%;
-  transform: translate(700%, 930%);
+  transform: translate(700%, 670%);
 }
-
-.bottom-btn {
-  height: 8%;
-  width: 10%;
-  transform: translate(750%, 630%);
-}
-
 .left-btn {
-  height: 5%;
+  height: 7%;
   width: 12%;
-  transform: translate(550%, 930%);
+  transform: translate(540%, 670%);
 }
 
 .red-btn {
   height: 5%;
-  width: 8%;
-  transform: translate(245%, 590%);
+  width: 10%;
+  transform: translate(195%, 605%);
 }
 
 .blue-btn {
   height: 8%;
-  width: 12%;
-  transform: translate(50%, 485%);
+  width: 15%;
+  transform: translate(30%, 495%);
 }
 
 .green-btn {
-  height: 3%;
+  height: 4%;
   width: 18%;
-  transform: translate(125%, 1380%);
+  transform: translate(125%, 1040%);
 }
 
 .orange-btn {
-  height: 3%;
+  height: 4%;
   width: 18%;
-  transform: translate(245%, 1380%);
+  transform: translate(245%, 1040%);
 }
 
 .speaker-btn {
   height: 7%;
-  width: 20%;
-  transform: translate(315%, 405%);
+  width: 25%;
+  transform: translate(240%, 415%);
 }
 
 .input-btn {
-  height: 11%;
-  width: 38%;
-  transform: translate(52%, 455%);
+  background: transparent;
+  height: 10%;
+  width: 36%;
+  transform: translate(52%, 480%);
+}
+
+@media (max-width: 380px) {
+  .pokedex-screen {
+    transform: translate(11%, 81.5%);
+    height: 31.5%;
+  }
+  .input-btn {
+    background: transparent;
+    height: 10%;
+    width: 36%;
+    transform: translate(52%, 465%);
+  }
 }
 </style>

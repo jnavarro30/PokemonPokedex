@@ -1,5 +1,5 @@
 <script setup>
-import Pokedex from './components/Pokedex.vue';
+import Pokedex from "./components/Pokedex.vue";
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import Pokedex from './components/Pokedex.vue';
   </div>
 </template>
 
-<style scoped>
+<style>
 .app {
   height: 100vh;
   background-image: url("./assets/images/thimo-pedersen-TWCnHKKhqSo-unsplash.jpg");
