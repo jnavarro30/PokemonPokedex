@@ -18,6 +18,9 @@ export default {
     pokemonInfo() {
       return this.$store.state.pokemonInfo;
     },
+    currentTrackIndex() {
+      return this.$store.state.currentTrackIndex;
+    },
     classicView() {
       return this.$store.state.classicView;
     },
@@ -35,6 +38,9 @@ export default {
     },
     setPokemonInfo(info) {
       this.$store.dispatch("setPokemonInfo", info);
+    },
+    setCurrentTrackIndex(index) {
+      this.$store.dispatch("setCurrentTrackIndex", index);
     },
     setClassicView() {
       this.$store.commit("setClassicView");
@@ -76,7 +82,7 @@ export default {
 <template>
   <div class="pokedex" tabIndex="1" @keydown="handleOnKeyDown">
     <div
-      v-if="pokemonView === true"
+      v-if="pokemonView"
       class="pokedex-screen"
       :class="darkView ? 'dark-view' : ''"
       @click="setDarkView"
@@ -85,7 +91,7 @@ export default {
     </div>
     <div
       v-else
-      class="music-screen"
+      class="pokedex-screen"
       :class="darkView ? 'dark-view' : ''"
       @click="setDarkView"
     >
@@ -93,19 +99,35 @@ export default {
     </div>
     <div
       className="up-btn btn"
-      @click="setPokemonParam(pokemonParam + 1)"
+      @click="
+        pokemonView
+          ? setPokemonParam(pokemonParam + 1)
+          : setCurrentTrackIndex(currentTrackIndex + 1)
+      "
     ></div>
     <div
       className="right-btn btn"
-      @click="setPokemonParam(pokemonParam + 1)"
+      @click="
+        pokemonView
+          ? setPokemonParam(pokemonParam + 1)
+          : setCurrentTrackIndex(currentTrackIndex + 1)
+      "
     ></div>
     <div
       className="bottom-btn btn"
-      @click="setPokemonParam(pokemonParam - 1)"
+      @click="
+        pokemonView
+          ? setPokemonParam(pokemonParam + 1)
+          : setCurrentTrackIndex(currentTrackIndex - 1)
+      "
     ></div>
     <div
       className="left-btn btn"
-      @click="setPokemonParam(pokemonParam - 1)"
+      @click="
+        pokemonView
+          ? setPokemonParam(pokemonParam + 1)
+          : setCurrentTrackIndex(currentTrackIndex - 1)
+      "
     ></div>
     <div className="red-btn btn" @click="redBtn"></div>
     <div className="blue-btn btn" @click="blueBtn"></div>
@@ -152,18 +174,6 @@ export default {
   padding: 0.5rem;
   border-radius: 10px;
 }
-
-.music-screen {
-  transform: translate(10%, 80%);
-  height: 35%;
-  width: 83%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  border-radius: 10px;
-  padding: 0.5rem;
-}
-
 .dark-view {
   background-color: black;
   color: #ffffff;
@@ -232,6 +242,7 @@ export default {
   height: 10%;
   width: 36%;
   transform: translate(52%, 480%);
+  font-size: 1.1rem;
 }
 
 @media (max-width: 380px) {
@@ -240,9 +251,6 @@ export default {
     height: 31.5%;
   }
   .input-btn {
-    background: transparent;
-    height: 10%;
-    width: 36%;
     transform: translate(52%, 465%);
   }
 }

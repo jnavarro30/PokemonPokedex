@@ -1,15 +1,7 @@
 <script>
-import PokemonMusic from "./PokemonMusic.vue";
-
 export default {
   name: "PokemonData",
-  components: {
-    PokemonMusic,
-  },
   computed: {
-    pokemonView() {
-      return this.$store.state.pokemonView;
-    },
     pokemonInfo() {
       return this.$store.state.pokemonInfo;
     },
@@ -39,9 +31,5 @@ img {
 #pokemon-info {
   font-weight: bolder;
   text-transform: capitalize;
-}
-.dark-view {
-  background-color: black;
-  color: #ffffff;
 }
 </style>

@@ -1,17 +1,20 @@
 import { createStore } from "vuex";
+import tracks from "../assets/audio/tracks";
 
 const store = createStore({
   state: {
     pokemonView: true,
     pokemonParam: 1,
     pokemonInfo: {},
+    currentTrack: "Celadon City",
+    currentTrackIndex: 0,
     classicView: false,
     darkView: false,
   },
 
   getters: {
-    something() {
-      return "some";
+    pokemonTracks() {
+      return tracks;
     },
   },
 
@@ -24,6 +27,10 @@ const store = createStore({
     },
     setPokemonInfo(state, payload) {
       state.pokemonInfo = payload;
+    },
+    setCurrentTrackIndex(state, payload) {
+      state.currentTrackIndex = payload;
+      console.log(state.currentTrackIndex);
     },
     setClassicView(state) {
       state.classicView = !state.classicView;
@@ -55,6 +62,11 @@ const store = createStore({
     },
     setPokemonInfo(context, payload) {
       context.commit("setPokemonInfo", payload);
+    },
+    setCurrentTrackIndex(context, payload) {
+      if (payload < -9) context.commit("setCurrentTrackIndex", 0);
+      else if (payload > 0) context.commit("setCurrentTrackIndex", -9);
+      else context.commit("setCurrentTrackIndex", payload);
     },
   },
 });
