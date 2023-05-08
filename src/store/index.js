@@ -6,8 +6,9 @@ const store = createStore({
     pokemonView: true,
     pokemonParam: 1,
     pokemonInfo: {},
-    currentTrack: "Celadon City",
+    currentTrack: new Audio(tracks["Celadon City"]),
     currentTrackIndex: 0,
+    isPlaying: false,
     classicView: false,
     darkView: false,
   },
@@ -28,9 +29,12 @@ const store = createStore({
     setPokemonInfo(state, payload) {
       state.pokemonInfo = payload;
     },
+    setCurrentTrack(state, payload) {
+      let trackNames = Object.keys(tracks);
+      state.currentTrack = new Audio(tracks[trackNames[payload]]);
+    },
     setCurrentTrackIndex(state, payload) {
       state.currentTrackIndex = payload;
-      console.log(state.currentTrackIndex);
     },
     setClassicView(state) {
       state.classicView = !state.classicView;
@@ -49,14 +53,35 @@ const store = createStore({
         id: 1,
         name: "bulbasaur",
       };
+      state.currentTrack.pause();
+      state.currentTrack.src = tracks["Celadon City"];
+      state.isPlaying = false;
       state.classicView = false;
       state.darkView = false;
+    },
+    blueBtn(state) {
+      console.log("press enter for input");
+    },
+    speakerBtn(state) {
+      let url = Object.values(tracks)[Math.abs(state.currentTrackIndex)];
+      if (state.currentTrack.src === url) {
+        if (state.isPlaying) {
+          state.isPlaying = false;
+          state.currentTrack.pause();
+        } else {
+          state.isPlaying = true;
+          state.currentTrack.play();
+        }
+      } else {
+        state.currentTrack.pause();
+        state.currentTrack.src = url;
+        state.currentTrack.play();
+        state.isPlaying = true;
+      }
     },
   },
   actions: {
     setPokemonParam(context, payload) {
-      console.log(payload, " is the payload");
-      console.log(context.state.pokemonParam);
       if (payload < 1) context.commit("setPokemonParam", 1);
       else context.commit("setPokemonParam", payload);
     },

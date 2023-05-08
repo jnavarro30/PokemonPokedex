@@ -51,6 +51,9 @@ export default {
     redBtn() {
       this.$store.commit("redBtn");
     },
+    speakerBtn() {
+      this.$store.commit("speakerBtn");
+    },
     async fetchPokemon() {
       try {
         let body = await axios.get(
@@ -117,7 +120,7 @@ export default {
       className="bottom-btn btn"
       @click="
         pokemonView
-          ? setPokemonParam(pokemonParam + 1)
+          ? setPokemonParam(pokemonParam - 1)
           : setCurrentTrackIndex(currentTrackIndex - 1)
       "
     ></div>
@@ -125,7 +128,7 @@ export default {
       className="left-btn btn"
       @click="
         pokemonView
-          ? setPokemonParam(pokemonParam + 1)
+          ? setPokemonParam(pokemonParam - 1)
           : setCurrentTrackIndex(currentTrackIndex - 1)
       "
     ></div>
