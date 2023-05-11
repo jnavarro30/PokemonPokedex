@@ -2,6 +2,7 @@
 import axios from "axios";
 import PokemonData from "./PokemonData.vue";
 import PokemonMusic from "./PokemonMusic.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -9,51 +10,27 @@ export default {
     PokemonMusic,
   },
   computed: {
-    pokemonView() {
-      return this.$store.state.pokemonView;
-    },
-    pokemonParam() {
-      return this.$store.state.pokemonParam;
-    },
-    pokemonInfo() {
-      return this.$store.state.pokemonInfo;
-    },
-    currentTrackIndex() {
-      return this.$store.state.currentTrackIndex;
-    },
-    classicView() {
-      return this.$store.state.classicView;
-    },
-    darkView() {
-      return this.$store.state.darkView;
-    },
+    ...mapGetters([
+      "pokemonView",
+      "pokemonParam",
+      "pokemonInfo",
+      "currentTrackIndex",
+      "classicView",
+      "darkView",
+    ]),
   },
   methods: {
-    setPokemonView() {
-      this.$store.commit("setPokemonView");
-    },
-    setPokemonParam(param) {
-      this.$store.dispatch("setPokemonParam", param);
-      this.fetchPokemon();
-    },
-    setPokemonInfo(info) {
-      this.$store.dispatch("setPokemonInfo", info);
-    },
-    setCurrentTrackIndex(index) {
-      this.$store.dispatch("setCurrentTrackIndex", index);
-    },
-    setClassicView() {
-      this.$store.commit("setClassicView");
-    },
-    setDarkView() {
-      this.$store.commit("setDarkView");
-    },
-    redBtn() {
-      this.$store.commit("redBtn");
-    },
-    speakerBtn() {
-      this.$store.commit("speakerBtn");
-    },
+    ...mapActions([
+      "setPokemonView",
+      "setPokemonParam",
+      "setPokemonInfo",
+      "setCurrentTrackIndex",
+      "setClassicView",
+      "setDarkView",
+      "redBtn",
+      "blueBtn",
+      "speakerBtn",
+    ]),
     async fetchPokemon() {
       try {
         let body = await axios.get(

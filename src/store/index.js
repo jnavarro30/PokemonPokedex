@@ -14,34 +14,26 @@ const store = createStore({
   },
 
   getters: {
-    pokemonTracks() {
-      return tracks;
-    },
+    pokemonView: (state) => state.pokemonView,
+    pokemonParam: (state) => state.pokemonParam,
+    pokemonInfo: (state) => state.pokemonInfo,
+    currentTrack: (state) => state.currentTrack,
+    currentTrackIndex: (state) => state.currentTrackIndex,
+    isPlaying: (state) => state.isPlaying,
+    classicView: (state) => state.classicView,
+    darkView: (state) => state.darkView,
+    pokemonTracks: () => tracks,
   },
 
   mutations: {
-    setPokemonView(state) {
-      state.pokemonView = !state.pokemonView;
-    },
-    setPokemonParam(state, payload) {
-      state.pokemonParam = payload;
-    },
-    setPokemonInfo(state, payload) {
-      state.pokemonInfo = payload;
-    },
-    setCurrentTrack(state, payload) {
-      let trackNames = Object.keys(tracks);
-      state.currentTrack = new Audio(tracks[trackNames[payload]]);
-    },
-    setCurrentTrackIndex(state, payload) {
-      state.currentTrackIndex = payload;
-    },
-    setClassicView(state) {
-      state.classicView = !state.classicView;
-    },
-    setDarkView(state) {
-      state.darkView = !state.darkView;
-    },
+    setPokemonView: (state) => (state.pokemonView = !state.pokemonView),
+    setPokemonParam: (state, payload) => (state.pokemonParam = payload),
+    setPokemonInfo: (state, payload) => (state.pokemonInfo = payload),
+    setCurrentTrack: (state, payload) => (state.currentTrack = payload),
+    setCurrentTrackIndex: (state, payload) =>
+      (state.currentTrackIndex = payload),
+    setClassicView: (state) => (state.classicView = !state.classicView),
+    setDarkView: (state) => (state.darkView = !state.darkView),
     redBtn(state) {
       state.pokemonView = true;
       state.pokemonParam = 1;
@@ -81,6 +73,9 @@ const store = createStore({
     },
   },
   actions: {
+    setPokemonView(context) {
+      context.commit("setPokemonView");
+    },
     setPokemonParam(context, payload) {
       if (payload < 1) context.commit("setPokemonParam", 1);
       else context.commit("setPokemonParam", payload);
@@ -88,11 +83,20 @@ const store = createStore({
     setPokemonInfo(context, payload) {
       context.commit("setPokemonInfo", payload);
     },
+    setCurrentTrack(context, payload) {
+      let trackNames = Object.keys(tracks);
+      context.commit("setCurrentTrack", new Audio(tracks[trackNames[payload]]));
+    },
     setCurrentTrackIndex(context, payload) {
       if (payload < -9) context.commit("setCurrentTrackIndex", 0);
       else if (payload > 0) context.commit("setCurrentTrackIndex", -9);
       else context.commit("setCurrentTrackIndex", payload);
     },
+    setClassicView: (context) => context.commit("setClassicView"),
+    setDarkView: (context) => context.commit("setDarkView"),
+    redBtn: (context) => context.commit("retBtn"),
+    blueBtn: (context) => context.commit("blueBtn"),
+    speakerBtn: (context) => context.commit("speakerBtn"),
   },
 });
 
