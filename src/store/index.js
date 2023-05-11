@@ -11,6 +11,7 @@ const store = createStore({
     isPlaying: false,
     classicView: false,
     darkView: false,
+    userInput: "",
   },
 
   getters: {
@@ -22,6 +23,7 @@ const store = createStore({
     isPlaying: (state) => state.isPlaying,
     classicView: (state) => state.classicView,
     darkView: (state) => state.darkView,
+    userInput: (state) => state.userInput,
     pokemonTracks: () => tracks,
   },
 
@@ -34,6 +36,7 @@ const store = createStore({
       (state.currentTrackIndex = payload),
     setClassicView: (state) => (state.classicView = !state.classicView),
     setDarkView: (state) => (state.darkView = !state.darkView),
+    setUserInput: (state, payload) => (state.userInput = payload),
     redBtn(state) {
       state.pokemonView = true;
       state.pokemonParam = 1;
@@ -94,6 +97,7 @@ const store = createStore({
     },
     setClassicView: (context) => context.commit("setClassicView"),
     setDarkView: (context) => context.commit("setDarkView"),
+    setUserInput: (context, payload) => context.commit("setUserInput", payload),
     redBtn: (context) => context.commit("retBtn"),
     blueBtn: (context) => context.commit("blueBtn"),
     speakerBtn: (context) => context.commit("speakerBtn"),

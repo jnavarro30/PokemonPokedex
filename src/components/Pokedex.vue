@@ -15,6 +15,7 @@ export default {
       "pokemonParam",
       "pokemonInfo",
       "currentTrackIndex",
+      "userInput",
       "classicView",
       "darkView",
     ]),
@@ -27,6 +28,7 @@ export default {
       "setCurrentTrackIndex",
       "setClassicView",
       "setDarkView",
+      "setUserInput",
       "redBtn",
       "blueBtn",
       "speakerBtn",
@@ -78,7 +80,7 @@ export default {
       <PokemonMusic />
     </div>
     <div
-      className="up-btn btn"
+      class="up-btn btn"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam + 1)
@@ -86,7 +88,7 @@ export default {
       "
     ></div>
     <div
-      className="right-btn btn"
+      class="right-btn btn"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam + 1)
@@ -94,7 +96,7 @@ export default {
       "
     ></div>
     <div
-      className="bottom-btn btn"
+      class="bottom-btn btn"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam - 1)
@@ -102,25 +104,25 @@ export default {
       "
     ></div>
     <div
-      className="left-btn btn"
+      class="left-btn btn"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam - 1)
           : setCurrentTrackIndex(currentTrackIndex - 1)
       "
     ></div>
-    <div className="red-btn btn" @click="redBtn"></div>
-    <div className="blue-btn btn" @click="blueBtn"></div>
-    <div className="green-btn btn" @click="setClassicView"></div>
+    <div class="red-btn btn" @click="redBtn"></div>
+    <div class="blue-btn btn" @click="blueBtn"></div>
+    <div class="green-btn btn" @click="setClassicView"></div>
     <div class="orange-btn btn" @click="setPokemonView"></div>
-    <div className="speaker-btn btn" @click="speakerBtn"></div>
+    <div class="speaker-btn btn" @click="speakerBtn"></div>
     <input
-      className="input-btn btn"
+      class="input-btn btn"
       type="text"
       name="input"
-      value="{userInput}"
+      value=""
       placeholder="Name/ID"
-      onChange="{handleOnChange}"
+      onChange="setUserInput"
       autoComplete="off"
     />
   </div>
