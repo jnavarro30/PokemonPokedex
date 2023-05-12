@@ -74,7 +74,7 @@ export default {
 </script>
 
 <template>
-  <div class="pokedex" tabIndex="1" @keydown="handleOnKeyDown">
+  <div class="pokedex">
     <div
       v-if="pokemonView"
       class="pokedex-screen"
@@ -155,17 +155,17 @@ export default {
 }
 
 .pokedex-screen {
-  border: 1px solid black;
-  transform: translate(11%, 82.5%);
-  height: 32%;
-  width: 76.6%;
-  background-color: rgba(37, 169, 245, 0.1);
+  position: absolute;
+  top: 27.6%;
+  left: 7.5%;
+  height: 33%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  border-radius: 10px;
+  border-radius: 30px;
 }
 .dark-view {
   background-color: black;
@@ -174,76 +174,86 @@ export default {
 /* CONTROLS */
 .btn {
   position: absolute;
-  /* background: black; show/hide buttons */
+  /* show buttons */
+  /* background: black; */
 }
 
 .up-btn {
   height: 8%;
   width: 12%;
-  transform: translate(620%, 520%);
+  top: 75%;
+  left: 75%;
 }
 .bottom-btn {
   height: 8%;
   width: 12%;
-  transform: translate(620%, 630%);
+  top: 86%;
+  left: 75%;
 }
 
 .right-btn {
   height: 7%;
   width: 12%;
-  transform: translate(700%, 670%);
+  top: 81%;
+  left: 86%;
 }
 .left-btn {
   height: 7%;
   width: 12%;
-  transform: translate(540%, 670%);
+  top: 81%;
+  left: 65%;
 }
 
 .red-btn {
   height: 5%;
   width: 10%;
-  transform: translate(195%, 605%);
+  top: 64.5%;
+  left: 19.5%;
 }
 
 .blue-btn {
   height: 8%;
   width: 15%;
-  transform: translate(30%, 495%);
+  top: 73.6%;
+  left: 4%;
 }
 
 .green-btn {
   height: 4%;
   width: 18%;
-  transform: translate(125%, 1040%);
+  top: 76%;
+  left: 22.5%;
 }
 
 .orange-btn {
   height: 4%;
   width: 18%;
-  transform: translate(245%, 1040%);
+  top: 76%;
+  left: 44.5%;
 }
 
 .speaker-btn {
   height: 7%;
   width: 25%;
-  transform: translate(240%, 415%);
+  top: 64%;
+  left: 60.5%;
 }
 
 .input-btn {
   background: transparent;
   height: 10%;
   width: 36%;
-  transform: translate(52%, 480%);
+  top: 85.4%;
+  left: 20.5%;
   font-size: 1.1rem;
+  border: none;
 }
 
-@media (max-width: 380px) {
+@media (min-width: 700px) {
   .pokedex-screen {
-    transform: translate(11%, 81.5%);
-    height: 31.5%;
-  }
-  .input-btn {
-    transform: translate(52%, 465%);
+    top: 27.4%;
+    left: 8.2%;
+    height: 34%;
   }
 }
 </style>
