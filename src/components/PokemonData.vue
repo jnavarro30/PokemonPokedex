@@ -3,14 +3,11 @@ export default {
   name: "PokemonData",
   computed: {
     pokemonInfo() {
-      return this.$store.state.pokemonInfo;
+      return this.$store.getters.pokemonInfo;
     },
     classicView() {
-      return this.$store.state.classicView;
+      return this.$store.getters.classicView;
     },
-  },
-  mounted() {
-    console.log("PokemonData mounteed");
   },
 };
 </script>

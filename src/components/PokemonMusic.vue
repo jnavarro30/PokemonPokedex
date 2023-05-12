@@ -3,18 +3,14 @@ export default {
   name: "PokemonMusic",
   computed: {
     pokemonView() {
-      return this.$store.state.pokemonView;
+      return this.$store.getters.pokemonView;
     },
     pokemonTracks() {
       return this.$store.getters.pokemonTracks;
     },
     currentTrackIndex() {
-      return this.$store.state.currentTrackIndex;
+      return this.$store.getters.currentTrackIndex;
     },
-  },
-  mounted() {
-    console.log("music mounted");
-    console.log(this.pokemonView);
   },
 };
 </script>

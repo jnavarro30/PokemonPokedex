@@ -54,9 +54,6 @@ const store = createStore({
       state.classicView = false;
       state.darkView = false;
     },
-    blueBtn(state) {
-      console.log("press enter for input");
-    },
     speakerBtn(state) {
       let url = Object.values(tracks)[Math.abs(state.currentTrackIndex)];
       if (state.currentTrack.src === url) {
@@ -98,8 +95,7 @@ const store = createStore({
     setClassicView: (context) => context.commit("setClassicView"),
     setDarkView: (context) => context.commit("setDarkView"),
     setUserInput: (context, payload) => context.commit("setUserInput", payload),
-    redBtn: (context) => context.commit("retBtn"),
-    blueBtn: (context) => context.commit("blueBtn"),
+    redBtn: (context) => context.commit("redBtn"),
     speakerBtn: (context) => context.commit("speakerBtn"),
   },
 });

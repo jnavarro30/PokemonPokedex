@@ -30,14 +30,17 @@ export default {
       "setDarkView",
       "setUserInput",
       "redBtn",
-      "blueBtn",
       "speakerBtn",
     ]),
     async fetchPokemon() {
       try {
+        let param = this.$store.getters.userInput
+          ? this.$store.getters.userInput
+          : this.$store.getters.pokemonParam;
         let body = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${this.$store.state.pokemonParam}`
+          `https://pokeapi.co/api/v2/pokemon/${param}`
         );
+
         let pokemon = body.data;
         let { id, name } = pokemon;
         let classicSprite = pokemon.sprites.front_default;
@@ -50,9 +53,18 @@ export default {
           sprite,
         });
       } catch (err) {
+        alert(`Invalid Entry: ${this.$store.getters.userInput}`);
         console.error(err);
-        return;
       }
+    },
+    blueBtn() {
+      this.fetchPokemon();
+      this.setUserInput("");
+    },
+  },
+  watch: {
+    pokemonParam() {
+      this.fetchPokemon();
     },
   },
   mounted() {
@@ -120,10 +132,9 @@ export default {
       class="input-btn btn"
       type="text"
       name="input"
-      value=""
+      :value="userInput"
+      @input="(event) => setUserInput(event.target.value)"
       placeholder="Name/ID"
-      onChange="setUserInput"
-      autoComplete="off"
     />
   </div>
 </template>
@@ -144,7 +155,7 @@ export default {
 }
 
 .pokedex-screen {
-  border: 1px solid red;
+  border: 1px solid black;
   transform: translate(11%, 82.5%);
   height: 32%;
   width: 76.6%;
@@ -163,8 +174,7 @@ export default {
 /* CONTROLS */
 .btn {
   position: absolute;
-  z-index: 100;
-  background: black;
+  /* background: black; show/hide buttons */
 }
 
 .up-btn {
