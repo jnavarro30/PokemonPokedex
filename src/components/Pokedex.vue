@@ -1,8 +1,8 @@
 <script>
-import axios from "axios";
 import PokemonData from "./PokemonData.vue";
 import PokemonMusic from "./PokemonMusic.vue";
 import { mapGetters, mapActions } from "vuex";
+import { fetchPokemon } from "../utils/fetchPokemon";
 
 export default {
   components: {
@@ -32,43 +32,18 @@ export default {
       "redBtn",
       "speakerBtn",
     ]),
-    async fetchPokemon() {
-      try {
-        let param = this.userInput ? this.userInput : this.pokemonParam;
-        let body = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${param}`
-        );
-
-        let pokemon = body.data;
-        let { id, name } = pokemon;
-        let classicSprite = pokemon.sprites.front_default;
-        let sprite = pokemon.sprites.other.dream_world.front_default;
-
-        if (param !== this.pokemonParam) this.setPokemonParam(id);
-
-        this.setPokemonInfo({
-          id,
-          name,
-          classicSprite,
-          sprite,
-        });
-      } catch (err) {
-        alert(`Invalid Entry: ${this.userInput}`);
-        console.error(err);
-      }
-    },
     blueBtn() {
-      this.fetchPokemon();
+      fetchPokemon();
       this.setUserInput("");
     },
   },
   watch: {
     pokemonParam() {
-      this.fetchPokemon();
+      fetchPokemon();
     },
   },
   mounted() {
-    this.fetchPokemon();
+    fetchPokemon();
   },
 };
 </script>
