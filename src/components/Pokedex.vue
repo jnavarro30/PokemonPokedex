@@ -34,9 +34,7 @@ export default {
     ]),
     async fetchPokemon() {
       try {
-        let param = this.$store.getters.userInput
-          ? this.$store.getters.userInput
-          : this.$store.getters.pokemonParam;
+        let param = this.userInput ? this.userInput : this.pokemonParam;
         let body = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${param}`
         );
@@ -46,6 +44,8 @@ export default {
         let classicSprite = pokemon.sprites.front_default;
         let sprite = pokemon.sprites.other.dream_world.front_default;
 
+        if (param !== this.pokemonParam) this.setPokemonParam(id);
+
         this.setPokemonInfo({
           id,
           name,
@@ -53,7 +53,7 @@ export default {
           sprite,
         });
       } catch (err) {
-        alert(`Invalid Entry: ${this.$store.getters.userInput}`);
+        alert(`Invalid Entry: ${this.userInput}`);
         console.error(err);
       }
     },

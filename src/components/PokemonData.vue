@@ -1,13 +1,9 @@
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "PokemonData",
   computed: {
-    pokemonInfo() {
-      return this.$store.getters.pokemonInfo;
-    },
-    classicView() {
-      return this.$store.getters.classicView;
-    },
+    ...mapGetters(["pokemonInfo", "classicView"]),
   },
 };
 </script>

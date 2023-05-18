@@ -1,16 +1,9 @@
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "PokemonMusic",
   computed: {
-    pokemonView() {
-      return this.$store.getters.pokemonView;
-    },
-    pokemonTracks() {
-      return this.$store.getters.pokemonTracks;
-    },
-    currentTrackIndex() {
-      return this.$store.getters.currentTrackIndex;
-    },
+    ...mapGetters(["pokemonView", "pokemonTracks", "currentTrackIndex"]),
   },
 };
 </script>
