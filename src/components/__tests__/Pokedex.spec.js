@@ -55,6 +55,14 @@ describe("Buttons red, blue, orange, green", () => {
     expect(wrapper.vm.classicView).toBe(true);
   });
 
+  // it("sets pokemonParam to userinput", async () => {
+  //   await wrapper.find(".input-btn").setValue("abra");
+  //   let val = await wrapper.find(".input-btn").value;
+  //   console.log("value", val);
+  //   await wrapper.find(".blue-btn").trigger("click");
+  //   expect(wrapper.vm.pokemonParam).toBe("abra");
+  // });
+
   it("resets state to default (red)", async () => {
     let pokemonMusic = wrapper.findComponent(PokemonMusic);
     await wrapper.find(".red-btn").trigger("click");
