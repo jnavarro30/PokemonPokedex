@@ -1,22 +1,19 @@
-import { describe, it, expect, beforeAll } from "vitest";
-import { shallowMount } from "@vue/test-utils";
+import { describe, it, expect, vi } from "vitest";
+import { shallowMount, mount } from "@vue/test-utils";
 import Pokedex from "../Pokedex.vue";
 import store from "../../store";
 import PokemonData from "../PokemonData.vue";
 import PokemonMusic from "../PokemonMusic.vue";
 
 describe("Pokedex", () => {
-  let wrapper;
-  beforeAll(() => {
-    wrapper = shallowMount(Pokedex, {
-      global: {
-        plugins: [store],
-        // alternative
-        // mocks: {
-        //   $store: store,
-        // },
-      },
-    });
+  const wrapper = mount(Pokedex, {
+    global: {
+      plugins: [store],
+      // alternative
+      // mocks: {
+      //   $store: store,
+      // },
+    },
   });
 
   it("renders properly", () => {
@@ -29,38 +26,63 @@ describe("Pokedex", () => {
     expect(pokemonData.exists()).toBe(true);
   });
 
-  it("renders music screen properly", async () => {
-    await wrapper.find(".orange-btn").trigger("click");
-    let pokemonMusic = wrapper.findComponent(PokemonMusic);
-    expect(pokemonMusic.exists()).toBe(true);
-  });
-});
-
-describe("Testing Getters and Actions", () => {
-  let wrapper;
-  beforeAll(() => {
-    wrapper = shallowMount(Pokedex, {
-      global: {
-        plugins: [store],
-        // alternative
-        // mocks: {
-        //   $store: store,
-        // },
-      },
-    });
-  });
-
   it("pokemonView toggles to dark view", async () => {
     await wrapper.find(".pokedex-screen").trigger("click");
     expect(wrapper.find(".dark-view").exists()).toBe(true);
   });
+});
 
-  it("pokemonParam increments on up and right control pad", async () => {
-    let upBtn = wrapper.find(".up-btn");
-    let rightBtn = wrapper.find(".right-btn");
-    await upBtn.trigger("click");
-    // await rightBtn.trigger("click");
+describe("Buttons red, blue, orange, green", () => {
+  const wrapper = shallowMount(Pokedex, {
+    global: {
+      plugins: [store],
+      // alternative
+      // mocks: {
+      //   $store: store,
+      // },
+    },
+  });
 
+  it("toggles music screen properly (orange)", async () => {
+    await wrapper.find(".orange-btn").trigger("click");
+    let pokemonMusic = wrapper.findComponent(PokemonMusic);
+    expect(pokemonMusic.exists()).toBe(true);
+  });
+
+  it("toggles classicView (green)", async () => {
+    expect(wrapper.vm.classicView).toBe(false);
+    await wrapper.find(".green-btn").trigger("click");
+    expect(wrapper.vm.classicView).toBe(true);
+  });
+
+  it("resets state to default (red)", async () => {
+    let pokemonMusic = wrapper.findComponent(PokemonMusic);
+    await wrapper.find(".red-btn").trigger("click");
+    expect(pokemonMusic.exists()).toBe(false);
+  });
+});
+
+describe("Pokedex D-Pad", () => {
+  const wrapper = shallowMount(Pokedex, {
+    global: {
+      plugins: [store],
+      // alternative
+      // mocks: {
+      //   $store: store,
+      // },
+    },
+  });
+
+  it("pokemonParam increased by up & left buttons", async () => {
+    await wrapper.find(".up-btn").trigger("click");
+    await wrapper.find(".right-btn").trigger("click");
+    expect(wrapper.vm.pokemonParam).toBe(3);
+  });
+
+  it("pokemonParam decreased by bottom & left buttons", async () => {
+    console.log(wrapper.vm.pokemonParam);
+    await wrapper.find(".bottom-btn").trigger("click");
+    await wrapper.find(".left-btn").trigger("click");
     expect(wrapper.vm.pokemonParam).toBe(1);
   });
 });
