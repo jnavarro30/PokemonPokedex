@@ -8,7 +8,7 @@
     >
       <PokemonData 
         :pokemonInfo="pokemonInfo"
-        :classicView: ="classicView"
+        :classicView="classicView"
       />
     </div>
     <div
@@ -72,11 +72,8 @@ import { computed, watch, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import PokemonData from "./PokemonData.vue";
 import PokemonMusic from "./PokemonMusic.vue";
-// import { fetchPokemon } from "../utils/fetchPokemon";
 import tracks from "../assets/audio/tracks";
 import axios from "axios";
-// import store from "../store/index";
-
 const store = useStore();
 
 let pokemonView= ref(true)

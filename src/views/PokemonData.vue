@@ -1,24 +1,22 @@
 <script setup>
-import {useStore } from "vuex";
-import { computed, toRefs } from "vue"
-
-const store = useStore()
-// const pokemonInfo = computed(() => store.getters.pokemonInfo)
-// const classicView = computed(() => store.getters.classicView)
+import { toRefs } from "vue"
 
 const props = defineProps({
   pokemonInfo: Object,
   classicView: Boolean
 })
+
 const { classicView, pokemonInfo } = toRefs(props)
 </script>
 
 <template>
-  <img
+  <div>
+    <img
     :src="classicView ? pokemonInfo.classicSprite : pokemonInfo.sprite"
     alt="pokemon"
   />
   <div id="pokemon-info">#{{ pokemonInfo.id }} {{ pokemonInfo.name }}</div>
+  </div>
 </template>
 
 <style scoped>
