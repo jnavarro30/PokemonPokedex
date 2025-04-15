@@ -1,22 +1,12 @@
 <template>
   <div class="pokedex">
-    <div
-      v-if="pokemonView"
-      class="pokedex-screen"
-      :class="darkView ? 'dark-view' : ''"
-      @click="setDarkView"
-    >
+    <div v-if="pokemonView">
       <PokemonData 
         :pokemonInfo="pokemonInfo"
         :classicView="classicView"
       />
     </div>
-    <div
-      v-else
-      class="pokedex-screen"
-      :class="darkView ? 'dark-view' : ''"
-      @click="setDarkView"
-    >
+    <div v-else>
       <PokemonMusic />
     </div>
     <div
@@ -140,21 +130,6 @@ const fetchPokemon = async () => {
   }
 };
 
-
-
-// Computed properties (replacing mapGetters)
-// const pokemonView = computed(() => store.getters.pokemonView);
-// const pokemonParam = computed(() => store.getters.pokemonParam);
-// const pokemonInfo = computed(() => store.getters.pokemonInfo);
-// const currentTrackIndex = computed(() => store.getters.currentTrackIndex);
-// const userInput = computed(() => store.getters.userInput);
-// const classicView = computed(() => store.getters.classicView);
-// const darkView = computed(() => store.getters.darkView);
-
-// Methods (replacing mapActions)
-// const setPokemonView = (value) => store.dispatch("setPokemonView", value);
-// const setPokemonParam = (value) => store.dispatch("setPokemonParam", value);
-// const setPokemonInfo = (value) => store.dispatch("setPokemonInfo", value);
 const setCurrentTrackIndex = (value) => store.dispatch("setCurrentTrackIndex", value);
 const setUserInput = (value) => store.dispatch("setUserInput", value);
 const redBtn = () => store.dispatch("redBtn");
@@ -176,72 +151,6 @@ onMounted(() => {
   fetchPokemon();
 });
 </script>
-
-<!-- <template>
-  <div class="pokedex">
-    <div
-      v-if="pokemonView"
-      class="pokedex-screen"
-      :class="darkView ? 'dark-view' : ''"
-      @click="setDarkView"
-    >
-      <PokemonData />
-    </div>
-    <div
-      v-else
-      class="pokedex-screen"
-      :class="darkView ? 'dark-view' : ''"
-      @click="setDarkView"
-    >
-      <PokemonMusic />
-    </div>
-    <div
-      class="up-btn btn"
-      @click="
-        pokemonView
-          ? setPokemonParam(pokemonParam + 1)
-          : setCurrentTrackIndex(currentTrackIndex + 1)
-      "
-    ></div>
-    <div
-      class="right-btn btn"
-      @click="
-        pokemonView
-          ? setPokemonParam(pokemonParam + 1)
-          : setCurrentTrackIndex(currentTrackIndex + 1)
-      "
-    ></div>
-    <div
-      class="bottom-btn btn"
-      @click="
-        pokemonView
-          ? setPokemonParam(pokemonParam - 1)
-          : setCurrentTrackIndex(currentTrackIndex - 1)
-      "
-    ></div>
-    <div
-      class="left-btn btn"
-      @click="
-        pokemonView
-          ? setPokemonParam(pokemonParam - 1)
-          : setCurrentTrackIndex(currentTrackIndex - 1)
-      "
-    ></div>
-    <div class="red-btn btn" @click="redBtn"></div>
-    <div class="blue-btn btn" @click="blueBtn"></div>
-    <div class="green-btn btn" @click="setClassicView"></div>
-    <div class="orange-btn btn" @click="setPokemonView"></div>
-    <div class="speaker-btn btn" @click="speakerBtn"></div>
-    <input
-      class="input-btn btn"
-      type="text"
-      name="input"
-      :value="userInput"
-      @input="(event) => setUserInput(event.target.value)"
-      placeholder="Name/ID"
-    />
-  </div>
-</template> -->
 
 <style scoped>
 .pokedex {
