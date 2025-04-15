@@ -16,7 +16,7 @@ const setDarkView = () => {
 </script>
 
 <template>
-  <div class="pokedex-screen absolute flex flex-col justify-content items-center bg-red-500 border-black-500" :class="darkView ? 'bg-black' : ''" @click="setDarkView">
+  <div class="absolute flex flex-col justify-content items-center bg-yellow-500 border-black-500" :class="darkView ? 'bg-black' : ''" @click="setDarkView">
     <img
       class=""
       :src="classicView ? pokemonInfo.classicSprite : pokemonInfo.sprite"
