@@ -8,7 +8,7 @@ import Pokedex from "./views/Pokedex.vue";
   </div>
 </template>
 
-<style>
+<style scoped>
 .app {
   height: 100vh;
   background-image: url("./assets/images/thimo-pedersen-TWCnHKKhqSo-unsplash.jpg");

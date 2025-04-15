@@ -1,14 +1,11 @@
 <template>
   <div class="pokedex">
-    <div v-if="pokemonView">
-      <PokemonData 
-        :pokemonInfo="pokemonInfo"
-        :classicView="classicView"
-      />
-    </div>
-    <div v-else>
-      <PokemonMusic />
-    </div>
+    <PokemonData 
+      v-if="pokemonView"
+      :pokemonInfo="pokemonInfo"
+      :classicView="classicView"
+    />
+    <PokemonMusic v-else />
     <div
       class="up-btn btn"
       @click="
@@ -167,19 +164,6 @@ onMounted(() => {
   font-family: "Pokemon Solid", sans-serif;
 }
 
-.pokedex-screen {
-  position: absolute;
-  top: 27.6%;
-  left: 7.5%;
-  height: 33%;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 30px;
-}
 .dark-view {
   background-color: black;
   color: #ffffff;
@@ -260,13 +244,5 @@ onMounted(() => {
   left: 20.5%;
   font-size: 1.1rem;
   border: none;
-}
-
-@media (min-width: 700px) {
-  .pokedex-screen {
-    top: 27.4%;
-    left: 8.2%;
-    height: 34%;
-  }
 }
 </style>

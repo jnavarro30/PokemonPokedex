@@ -16,36 +16,26 @@ const setDarkView = () => {
 </script>
 
 <template>
-  <div class="pokedex-screen bg-blue-500" :class="darkView ? 'dark-view' : ''" @click="setDarkView">
+  <div class="pokedex-screen absolute flex flex-col justify-content items-center bg-red-500 border-black-500" :class="darkView ? 'bg-black' : ''" @click="setDarkView">
     <img
-    :src="classicView ? pokemonInfo.classicSprite : pokemonInfo.sprite"
-    alt="pokemon"
-  />
-  <div id="pokemon-info">#{{ pokemonInfo.id }} {{ pokemonInfo.name }}</div>
+      class=""
+      :src="classicView ? pokemonInfo.classicSprite : pokemonInfo.sprite"
+      alt="pokemon"
+    />
+    <div class="bg-blue-500">#{{ pokemonInfo.id }} {{ pokemonInfo.name }}</div>
   </div>
 </template>
 
 <style scoped>
 .pokedex-screen {
-  position: absolute;
+  /* background-color: yellow; */
+  /* opacity: 50%; */
+  /* position: absolute; */
   top: 27.6%;
-  left: 7.5%;
-  height: 33%;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem;
+  /* left: 7.5%; */
+  /* height: 33%; */
+  /* width: 80%; */
   border-radius: 30px;
-}
-img {
-  height: 90%;
-  width: 90%;
-}
-#pokemon-info {
-  font-weight: bolder;
-  text-transform: capitalize;
 }
 .dark-view {
   background-color: black;
