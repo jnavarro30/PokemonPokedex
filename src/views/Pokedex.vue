@@ -3,6 +3,7 @@
     <PokemonData 
       v-if="pokemonView"
       :pokemonInfo="pokemonInfo"
+      class="inset-y-57.5 inset-x-8.5 w-73.5 h-70 rounded-xl border-black border-2"
       :classicView="classicView"
     />
     <PokemonMusic v-else />

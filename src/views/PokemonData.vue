@@ -16,7 +16,7 @@ const setDarkView = () => {
 </script>
 
 <template>
-  <div class="absolute flex flex-col justify-content items-center bg-yellow-500 border-black-500" :class="darkView ? 'bg-black' : ''" @click="setDarkView">
+  <div class="pokedex-screen absolute flex flex-col justify-content items-center" :class="darkView ? 'bg-black' : 'bg-cyan-100'" @click="setDarkView">
     <img
       class=""
       :src="classicView ? pokemonInfo.classicSprite : pokemonInfo.sprite"
@@ -31,14 +31,11 @@ const setDarkView = () => {
   /* background-color: yellow; */
   /* opacity: 50%; */
   /* position: absolute; */
-  top: 27.6%;
+  /* top: 27.6%; */
   /* left: 7.5%; */
   /* height: 33%; */
   /* width: 80%; */
-  border-radius: 30px;
-}
-.dark-view {
-  background-color: black;
-  color: #ffffff;
+  /* border-radius: 15px; */
+  /* border: black 2px solid; */
 }
 </style>
