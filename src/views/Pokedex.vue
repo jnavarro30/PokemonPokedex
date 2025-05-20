@@ -1,5 +1,7 @@
 <template>
-  <div class="pokedex">
+  <div 
+    class="relative h-98/100 w-96/100 bg-[length:100%_100%] border-5 rounded-xl bg-[url('../assets/images/pokedex.png')]"
+  >
     <PokemonData 
       v-if="pokemonView"
       :pokemonInfo="pokemonInfo"
@@ -8,7 +10,7 @@
     />
     <PokemonMusic v-else />
     <div
-      class="up-btn btn"
+      class="btn h-[8%] w-[12%] top-[75%] left-[75%]"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam + 1)
@@ -16,7 +18,7 @@
       "
     ></div>
     <div
-      class="right-btn btn"
+      class="btn h-[7%] w-[12%] top-[81%] left-[86%]"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam + 1)
@@ -24,7 +26,7 @@
       "
     ></div>
     <div
-      class="bottom-btn btn"
+      class="btn h-[8%] w-[12%] top-[86%] left-[75%]"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam - 1)
@@ -32,20 +34,20 @@
       "
     ></div>
     <div
-      class="left-btn btn"
+      class="btn h-[7%] w-[12%] top-[81%] left-[65%]"
       @click="
         pokemonView
           ? setPokemonParam(pokemonParam - 1)
           : setCurrentTrackIndex(currentTrackIndex - 1)
       "
     ></div>
-    <div class="red-btn btn" @click="redBtn"></div>
-    <div class="blue-btn btn" @click="blueBtn"></div>
-    <div class="green-btn btn" @click="setClassicView"></div>
-    <div class="orange-btn btn" @click="setPokemonView"></div>
-    <div class="speaker-btn btn" @click="speakerBtn"></div>
+    <div class="btn h-[5%] w-[10%] top-[64.5%] left-[19.5%]" @click="redBtn"></div>
+    <div class="btn h-[8%] w-[15%] top-[73.6%] left-[4%]" @click="blueBtn"></div>
+    <div class="btn h-[4%] w-[18%] top-[76%] left-[22.5%]" @click="setClassicView"></div>
+    <div class="btn h-[4%] w-[18%] top-[76%] left-[44.5%]" @click="setPokemonView"></div>
+    <div class="btn h-[7%] w-[25%] top-[64%] left-[60.5%]" @click="speakerBtn"></div>
     <input
-      class="input-btn btn"
+      class="btn bg-transparent h-[11%] w-[37%] top-[85%] left-[20.4%] text-[1.1rem] border-none"
       type="text"
       name="input"
       :value="userInput"
@@ -133,117 +135,28 @@ const setUserInput = (value) => store.dispatch("setUserInput", value);
 const redBtn = () => store.dispatch("redBtn");
 const speakerBtn = () => store.dispatch("speakerBtn");
 
-// Custom method
 const blueBtn = () => {
   fetchPokemon();
   setUserInput("");
 };
 
-// Watcher (replacing Vue 2's `watch` object)
 watch(pokemonParam, () => {
   fetchPokemon();
 });
 
-// Lifecycle hook (replacing `mounted`)
 onMounted(() => {
   fetchPokemon();
 });
 </script>
 
 <style scoped>
-.pokedex {
-  position: relative;
-  height: 98%;
-  width: 96%;
-  max-width: 600px;
-  background-image: url("../assets/images/pokedex.png");
-  background-size: 100% 100%;
-  border: 5px solid black;
-  border-radius: 4%;
-}
 ::placeholder {
   font-family: "Pokemon Solid", sans-serif;
-}
-
-.dark-view {
-  background-color: black;
-  color: #ffffff;
 }
 /* CONTROLS */
 .btn {
   position: absolute;
   /* show buttons */
-  /* background: black; */
-}
-
-.up-btn {
-  height: 8%;
-  width: 12%;
-  top: 75%;
-  left: 75%;
-}
-.bottom-btn {
-  height: 8%;
-  width: 12%;
-  top: 86%;
-  left: 75%;
-}
-
-.right-btn {
-  height: 7%;
-  width: 12%;
-  top: 81%;
-  left: 86%;
-}
-.left-btn {
-  height: 7%;
-  width: 12%;
-  top: 81%;
-  left: 65%;
-}
-
-.red-btn {
-  height: 5%;
-  width: 10%;
-  top: 64.5%;
-  left: 19.5%;
-}
-
-.blue-btn {
-  height: 8%;
-  width: 15%;
-  top: 73.6%;
-  left: 4%;
-}
-
-.green-btn {
-  height: 4%;
-  width: 18%;
-  top: 76%;
-  left: 22.5%;
-}
-
-.orange-btn {
-  height: 4%;
-  width: 18%;
-  top: 76%;
-  left: 44.5%;
-}
-
-.speaker-btn {
-  height: 7%;
-  width: 25%;
-  top: 64%;
-  left: 60.5%;
-}
-
-.input-btn {
-  background: transparent;
-  height: 10%;
-  width: 36%;
-  top: 85.4%;
-  left: 20.5%;
-  font-size: 1.1rem;
-  border: none;
+  background: black;
 }
 </style>
