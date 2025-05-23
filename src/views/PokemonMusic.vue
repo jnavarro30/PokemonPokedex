@@ -3,7 +3,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "PokemonMusic",
   computed: {
-    ...mapGetters(["pokemonView", "pokemonTracks", "currentTrackIndex"]),
+    ...mapGetters(["pokemonTracks", "currentTrackIndex"]),
   },
 };
 </script>
