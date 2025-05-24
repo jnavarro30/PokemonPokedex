@@ -9,13 +9,16 @@ export default {
 </script>
 
 <template>
-  <div
+  <!-- <div
     v-for="(url, name, index) in pokemonTracks"
     class="track"
     :class="currentTrackIndex === -index ? 'selected' : ''"
     :key="index"
   >
     {{ name }}
+  </div> -->
+  <div class="absolute w-[82%] h-[35%] top-[27.5%] left-[8.5%] rounded-xl border-black border-2 flex flex-col justify-content items-center">
+    <span class="text-2xl p-[5rem] h-[100%] w-[100%] bg-yellow-500 rounded-xl">COMING SOON</span>
   </div>
 </template>
 

@@ -165,7 +165,6 @@ const redBtn = () => {
 const orangeBtn = () => {
   const audio = new Audio('/audio/orange-green.wav');
   audio.play();
-  console.log("orange button = ", musicView.value);
   musicView.value = !musicView.value;
 };
 
