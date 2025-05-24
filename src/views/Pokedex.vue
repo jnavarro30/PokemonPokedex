@@ -5,7 +5,6 @@
     <PokemonData
       v-if="!musicView"
       :pokemonInfo="pokemonInfo"
-      class="inset-y-57.5 inset-x-8.5 w-73.5 h-70 rounded-xl border-black border-2"
       :classicView="classicView"
     />
     <PokemonMusic v-else />
@@ -66,28 +65,6 @@ import axios from "axios";
 const store = useStore();
 
 let musicView = ref(false);
-
-const controllerDpad = (direction) => {
-  console.log("dpad");
-  if (!musicView.value) {
-    if (direction === "up" || direction === "right") {
-      setPokemonParam(pokemonParam.value + 1);
-    } else if (direction === "down" || direction === "left") {
-      setPokemonParam(pokemonParam.value - 1);
-    } else {
-      throw Error("Enter a valid argument: up, down, left or right.");
-    }
-  } else {
-    if (direction === "up" || direction === "right") {
-      setCurrentTrackIndex(currentTrackIndex.value + 1);
-    } else if (direction === "down" || direction === "left") {
-      setCurrentTrackIndex(currentTrackIndex.value - 1);
-    } else {
-      throw Error("Enter a valid argument: up, down, left or right.");
-    }
-  }
-};
-
 let pokemonParam = ref(1);
 let pokemonInfo = ref({});
 let currentTrack = new Audio(tracks["Celadon City"]);
@@ -96,37 +73,37 @@ let isPlaying = ref(false);
 let classicView = ref(false);
 let userInput = ref("");
 
-const setPokemonView = (view) => {
-  if (view === "pokemon") {
-    pokemonView.value = true;
-    musicView.value = false;
-  } else if (view === "music") {
-    pokemonView.value = false;
-    musicView.value = true;
-  } else {
-    return;
-  }
-};
+// const setPokemonView = (view) => {
+//   if (view === "pokemon") {
+//     pokemonView.value = true;
+//     musicView.value = false;
+//   } else if (view === "music") {
+//     pokemonView.value = false;
+//     musicView.value = true;
+//   } else {
+//     return;
+//   }
+// };
 
 const setPokemonParam = (value) => {
   if (value < 1) return;
   pokemonParam.value = value;
-  console.log("the value = ", pokemonParam.value);
+  // console.log("the value = ", pokemonParam.value);
 };
 const setPokemonInfo = (value) => {
   pokemonInfo.value = value;
 };
 // const setCurrentTrackIndex = (value) => store.dispatch("setCurrentTrackIndex", value);
-const setClassicView = () => {
-  classicView.value = !classicView.value;
-  console.log("it is classic", classicView.value);
-};
+// const setClassicView = () => {
+//   classicView.value = !classicView.value;
+//   console.log("it is classic", classicView.value);
+// };
 
 const fetchPokemon = async () => {
   try {
-    console.log(userInput.value, "huh");
+    // console.log(userInput.value, "huh");
     let param = userInput.value ? userInput.value : pokemonParam.value;
-    console.log("the param", param);
+    // console.log("the param", param);
     let body = await axios.get(`https://pokeapi.co/api/v2/pokemon/${param}`);
 
     let pokemon = body.data;
@@ -155,26 +132,47 @@ const setCurrentTrackIndex = (value) =>
 // const setUserInput = (value) => store.dispatch("setUserInput", value);
 // const redBtn = () => store.dispatch("redBtn");
 
+const controllerDpad = (direction) => {
+  console.log("dpad");
+  if (!musicView.value) {
+    if (direction === "up" || direction === "right") {
+      setPokemonParam(pokemonParam.value + 1);
+    } else if (direction === "down" || direction === "left") {
+      setPokemonParam(pokemonParam.value - 1);
+    } else {
+      throw Error("Enter a valid argument: up, down, left or right.");
+    }
+  } else {
+    if (direction === "up" || direction === "right") {
+      setCurrentTrackIndex(currentTrackIndex.value + 1);
+    } else if (direction === "down" || direction === "left") {
+      setCurrentTrackIndex(currentTrackIndex.value - 1);
+    } else {
+      throw Error("Enter a valid argument: up, down, left or right.");
+    }
+  }
+};
+
 const blueBtn = () => {
   fetchPokemon();
   userInput.value = "";
 };
 
 const greenBtn = () => {
-  classicView.value = !classicView.value;
-  console.log("it is classic", classicView.value);
+  console.log('green button')
+  classicView.value = !classicView.value
 };
-// reset btn
+
 const redBtn = () => {
   console.log("red button");
   pokemonParam.value = 1;
-  pokemonView.value = true;
+  musicView.value = false;
   classicView.value = false;
   userInput.value = "";
 };
 
 const orangeBtn = () => {
-  console.log("orangeBTN = ", musicView.value);
+  console.log("orange button = ", musicView.value);
   musicView.value = !musicView.value;
 };
 

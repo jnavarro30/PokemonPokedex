@@ -1,20 +1,24 @@
 <script setup>
-import { ref, toRefs } from "vue"
+import { ref, toRefs } from "vue";
 
 const props = defineProps({
   pokemonInfo: Object,
-  classicView: Boolean
-})
-const { classicView, pokemonInfo } = toRefs(props)
-let darkView=  ref(false)
+  classicView: Boolean,
+});
+const { classicView, pokemonInfo } = toRefs(props);
+let darkView = ref(false);
 
 const setDarkView = () => {
-  darkView.value = !darkView.value
-}
+  darkView.value = !darkView.value;
+};
 </script>
 
 <template>
-  <div class="pokedex-screen absolute flex flex-col justify-content items-center" :class="darkView ? 'bg-black' : 'bg-cyan-100'" @click="setDarkView">
+  <div
+    class="absolute w-[82%] h-[35%] top-[27.5%] left-[8.5%] rounded-xl border-black border-2 flex flex-col justify-content items-center"
+    :class="darkView ? 'bg-black' : 'bg-cyan-100'"
+    @click="setDarkView"
+  >
     <img
       class="w-full h-full"
       :src="classicView ? pokemonInfo.classicSprite : pokemonInfo.sprite"
