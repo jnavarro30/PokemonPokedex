@@ -45,11 +45,12 @@
       @click="speakerBtn"
     ></div>
     <input
-      class="btn bg-transparent h-[11%] w-[37%] top-[85%] left-[20.4%] text-[1.1rem] border-none p-[1rem]"
+      class="btn bg-transparent h-[11%] w-[37%] top-[85%] left-[20.4%] text-[1.1rem] border-none p-[1rem] focus:outline-none"
       type="text"
       name="input"
       :value="userInput"
       @input="(event) => (userInput = event.target.value)"
+      @click="inputField"
       placeholder="Name/ID"
     />
   </div>
@@ -73,37 +74,18 @@ let isPlaying = ref(false);
 let classicView = ref(false);
 let userInput = ref("");
 
-// const setPokemonView = (view) => {
-//   if (view === "pokemon") {
-//     pokemonView.value = true;
-//     musicView.value = false;
-//   } else if (view === "music") {
-//     pokemonView.value = false;
-//     musicView.value = true;
-//   } else {
-//     return;
-//   }
-// };
-
 const setPokemonParam = (value) => {
   if (value < 1) return;
   pokemonParam.value = value;
-  // console.log("the value = ", pokemonParam.value);
 };
 const setPokemonInfo = (value) => {
   pokemonInfo.value = value;
 };
 // const setCurrentTrackIndex = (value) => store.dispatch("setCurrentTrackIndex", value);
-// const setClassicView = () => {
-//   classicView.value = !classicView.value;
-//   console.log("it is classic", classicView.value);
-// };
 
 const fetchPokemon = async () => {
   try {
-    // console.log(userInput.value, "huh");
     let param = userInput.value ? userInput.value : pokemonParam.value;
-    // console.log("the param", param);
     let body = await axios.get(`https://pokeapi.co/api/v2/pokemon/${param}`);
 
     let pokemon = body.data;
@@ -129,11 +111,10 @@ const fetchPokemon = async () => {
 
 const setCurrentTrackIndex = (value) =>
   store.dispatch("setCurrentTrackIndex", value);
-// const setUserInput = (value) => store.dispatch("setUserInput", value);
-// const redBtn = () => store.dispatch("redBtn");
 
 const controllerDpad = (direction) => {
-  console.log("dpad");
+  const audio = new Audio('/audio/dpad.wav');
+  audio.play();
   if (!musicView.value) {
     if (direction === "up" || direction === "right") {
       setPokemonParam(pokemonParam.value + 1);
@@ -154,17 +135,27 @@ const controllerDpad = (direction) => {
 };
 
 const blueBtn = () => {
+  if (userInput.value === "") return;
+  const audio = new Audio('/audio/blue.wav');
+  audio.play();
   fetchPokemon();
   userInput.value = "";
 };
 
 const greenBtn = () => {
-  console.log('green button')
+  const audio = new Audio('/audio/orange-green.wav');
+  audio.play();
   classicView.value = !classicView.value
 };
 
+const inputField = (event) => {
+  const audio = new Audio('/audio/orange-green.wav');
+  audio.play();
+};
+
 const redBtn = () => {
-  console.log("red button");
+  const audio = new Audio('/audio/red.wav');
+  audio.play();
   pokemonParam.value = 1;
   musicView.value = false;
   classicView.value = false;
@@ -172,11 +163,19 @@ const redBtn = () => {
 };
 
 const orangeBtn = () => {
+  const audio = new Audio('/audio/orange-green.wav');
+  audio.play();
   console.log("orange button = ", musicView.value);
   musicView.value = !musicView.value;
 };
 
-const speakerBtn = () => store.dispatch("speakerBtn");
+const speakerBtn = () => {
+  console.log("speaker button");
+  const audio = new Audio('/audio/scifi.wav');
+  audio.play();
+  // console.log("orange button = ", musicView.value);
+  // musicView.value = !musicView.value;
+};;
 
 watch(pokemonParam, () => {
   fetchPokemon();
