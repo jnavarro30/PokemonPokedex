@@ -1,6 +1,6 @@
 const tracks = {
   "Celadon City":
-    "https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/hjdhsxlpgp/1-33.%20Celadon%20City.mp3",
+    "https://downloads.khinsider.com/game-soundtracks/album/pokemon-red-green-super-music-collection/1-33.%2520Celadon%2520City%2520Theme.mp3",
   "Cerulean City":
     "https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/aaimcumwsw/1-19.%20Theme%20Of%20Cerulean%20City.mp3",
   "Cinnabar Island":
@@ -18,7 +18,7 @@ const tracks = {
   "Pewer City":
     "https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/mrunsfeghe/1-09.%20Theme%20Of%20Pewter%20City.mp3",
   "Vermillion City":
-    "https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/yrbkbbcxza/1-23.%20Theme%20Of%20Vermillion%20City.mp3",
+    "https://downloads.khinsider.com/game-soundtracks/album/pokemon-red-green-super-music-collection/1-23.%2520Vermilion%2520City%2520Theme.mp3",
 };
 
 export default tracks;

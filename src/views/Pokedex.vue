@@ -7,7 +7,10 @@
       :pokemonInfo="pokemonInfo"
       :classicView="classicView"
     />
-    <PokemonMusic v-else />
+    <PokemonMusic 
+      v-else
+      :currentTrackIndex="currentTrackIndex"
+    />
     <div
       class="btn h-[8%] w-[12%] top-[75%] left-[75%]"
       @click="controllerDpad('up')"
@@ -81,7 +84,6 @@ const setPokemonParam = (value) => {
 const setPokemonInfo = (value) => {
   pokemonInfo.value = value;
 };
-// const setCurrentTrackIndex = (value) => store.dispatch("setCurrentTrackIndex", value);
 
 const fetchPokemon = async () => {
   try {
@@ -109,11 +111,19 @@ const fetchPokemon = async () => {
   }
 };
 
-const setCurrentTrackIndex = (value) =>
-  store.dispatch("setCurrentTrackIndex", value);
+const setCurrentTrackIndex = (index) => {
+  console.log('the index = ', index)
+  if (index < -9) {
+    currentTrackIndex.value = 0;
+  } else if (index > 0) {
+    currentTrackIndex.value = -9;
+  } else {
+    currentTrackIndex.value = index;
+  }
+};
 
 const controllerDpad = (direction) => {
-  const audio = new Audio('/audio/dpad.wav');
+  const audio = new Audio("/audio/dpad.wav");
   audio.play();
   if (!musicView.value) {
     if (direction === "up" || direction === "right") {
@@ -136,25 +146,25 @@ const controllerDpad = (direction) => {
 
 const blueBtn = () => {
   if (userInput.value === "") return;
-  const audio = new Audio('/audio/blue.wav');
+  const audio = new Audio("/audio/blue.wav");
   audio.play();
   fetchPokemon();
   userInput.value = "";
 };
 
 const greenBtn = () => {
-  const audio = new Audio('/audio/orange-green.wav');
+  const audio = new Audio("/audio/orange-green.wav");
   audio.play();
-  classicView.value = !classicView.value
+  classicView.value = !classicView.value;
 };
 
 const inputField = (event) => {
-  const audio = new Audio('/audio/orange-green.wav');
+  const audio = new Audio("/audio/orange-green.wav");
   audio.play();
 };
 
 const redBtn = () => {
-  const audio = new Audio('/audio/red.wav');
+  const audio = new Audio("/audio/red.wav");
   audio.play();
   pokemonParam.value = 1;
   musicView.value = false;
@@ -163,18 +173,35 @@ const redBtn = () => {
 };
 
 const orangeBtn = () => {
-  const audio = new Audio('/audio/orange-green.wav');
+  const audio = new Audio("/audio/orange-green.wav");
   audio.play();
   musicView.value = !musicView.value;
 };
 
 const speakerBtn = () => {
   console.log("speaker button");
-  const audio = new Audio('/audio/scifi.wav');
+  const audio = new Audio("/audio/scifi.wav");
   audio.play();
+
+  let url = Object.values(tracks)[Math.abs(currentTrackIndex)];
+
+  if (currentTrack.src === url) {
+    if (isPlaying) {
+      isPlaying = false;
+      currentTrack.pause();
+    } else {
+      isPlaying = true;
+      currentTrack.play();
+    }
+  } else {
+    currentTrack.pause();
+    currentTrack.src = url;
+    currentTrack.play();
+    isPlaying = true;
+  }
   // console.log("orange button = ", musicView.value);
   // musicView.value = !musicView.value;
-};;
+};
 
 watch(pokemonParam, () => {
   fetchPokemon();

@@ -9,7 +9,6 @@ const { classicView, pokemonInfo } = toRefs(props);
 let darkView = ref(false);
 
 const setDarkView = () => {
-  console.log("darkview");
   const audio = new Audio('/audio/light-on:off.wav');
   audio.play();
   darkView.value = !darkView.value;
