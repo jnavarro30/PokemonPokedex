@@ -84,7 +84,9 @@ const soundEffect = elem => {
     case 'blue':
       wav = '/audio/blue.wav';
       break;
-    case 'orange', 'green', 'input':
+    case 'orange': 
+    case 'green': 
+    case 'input':
       wav = '/audio/orange-green.wav';
       break;
     case 'red':

@@ -2,7 +2,7 @@ const tracks = {
   "Celadon City":
     "https://eta.vgmtreasurechest.com/soundtracks/pokemon-red-green-super-music-collection/utididsyuk/1-33.%20Celadon%20City%20Theme.mp3",
   "Cerulean City":
-    "https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/aaimcumwsw/1-19.%20Theme%20Of%20Cerulean%20City.mp3",
+    "https://eta.vgmtreasurechest.com/soundtracks/pokemon-red-green-super-music-collection/utididsyuk/1-19.%20Theme%20Of%20Cerulean%20City.mp3",
   "Cinnabar Island":
     "https://vgmsite.com/soundtracks/pokemon-game-boy-pok-mon-sound-complete-set-play-cd/vtpqqgaixp/1-39.%20Theme%20Of%20Cinnabar%20Island.mp3",
   Ending:
