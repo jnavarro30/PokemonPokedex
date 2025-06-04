@@ -139,10 +139,12 @@ const setCurrentTrackIndex = (index, direction) => {
 const controllerDpad = (direction) => {
   const audio = new Audio("/audio/dpad.wav");
   if (!musicView.value) {
-    audio.play();
     if (direction === "up" || direction === "right") {
+      audio.play();
       setPokemonParam(pokemonParam.value + 1);
     } else if (direction === "down" || direction === "left") {
+      if (pokemonParam.value === 1) return;
+      audio.play();
       setPokemonParam(pokemonParam.value - 1);
     } else {
       throw Error("Enter a valid argument: up, down, left or right.");
