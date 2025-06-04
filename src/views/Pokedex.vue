@@ -124,8 +124,8 @@ const setCurrentTrackIndex = (index) => {
 
 const controllerDpad = (direction) => {
   const audio = new Audio("/audio/dpad.wav");
-  audio.play();
   if (!musicView.value) {
+    audio.play();
     if (direction === "up" || direction === "right") {
       setPokemonParam(pokemonParam.value + 1);
     } else if (direction === "down" || direction === "left") {
@@ -134,10 +134,22 @@ const controllerDpad = (direction) => {
       throw Error("Enter a valid argument: up, down, left or right.");
     }
   } else {
-    if (direction === "up" || direction === "right") {
-      setCurrentTrackIndex(currentTrackIndex.value + 1);
-    } else if (direction === "down" || direction === "left") {
+    if (direction === "up") {
+      if(currentTrackIndex.value === 0 || currentTrackIndex.value === -1) return;
+      audio.play();
+      setCurrentTrackIndex(currentTrackIndex.value + 2);
+    } else if (direction === "right") {
+      if(currentTrackIndex.value % 2 !== 0) return;
+      audio.play();
       setCurrentTrackIndex(currentTrackIndex.value - 1);
+    } else if (direction === "down") {
+      if(currentTrackIndex.value === -8 || currentTrackIndex.value === -9) return;
+      audio.play();
+      setCurrentTrackIndex(currentTrackIndex.value - 2);
+    } else if (direction === "left") {
+      if(currentTrackIndex.value % 2 === 0) return;
+      audio.play();
+      setCurrentTrackIndex(currentTrackIndex.value + 1);
     } else {
       throw Error("Enter a valid argument: up, down, left or right.");
     }
