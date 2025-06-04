@@ -137,6 +137,7 @@ const fetchPokemon = async () => {
 
 const setCurrentTrackIndex = (index, direction) => {
   currentTrackIndex.value = index;
+  if(!direction) return;
 
   if (direction === "up") {
     if(currentTrackIndex.value === 0 || currentTrackIndex.value === -1) return;
