@@ -4,21 +4,16 @@ import { ref, toRefs } from "vue";
 const props = defineProps({
   pokemonInfo: Object,
   classicView: Boolean,
+  darkView: Boolean,
+  setDarkView: Function
 });
-const { classicView, pokemonInfo } = toRefs(props);
-let darkView = ref(false);
-
-const setDarkView = () => {
-  const audio = new Audio('/audio/light-on:off.wav');
-  audio.play();
-  darkView.value = !darkView.value;
-};
+const { classicView, pokemonInfo, darkView, setDarkView } = toRefs(props);
 </script>
 
 <template>
   <div
     class="absolute w-[82%] h-[35%] top-[27.5%] left-[8.5%] rounded-xl border-black border-2 flex flex-col justify-content items-center"
-    :class="darkView ? 'bg-black' : 'bg-cyan-100'"
+    :class="darkView ? 'bg-black' : 'bg-white'"
     @click="setDarkView"
   >
     <img

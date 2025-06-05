@@ -6,10 +6,14 @@
       v-if="!musicView"
       :pokemonInfo="pokemonInfo"
       :classicView="classicView"
+      :darkView="darkView"
+      :setDarkView="setDarkView"
     />
     <PokemonMusic 
       v-else
       :currentTrackIndex="currentTrackIndex"
+      :darkView="darkView"
+      :setDarkView="setDarkView"
     />
     <div
       class="btn h-[8%] w-[12%] top-[75%] left-[75%]"
@@ -74,6 +78,13 @@ let currentTrackIndex = ref(0);
 let isPlaying = ref(false);
 let classicView = ref(false);
 let userInput = ref("");
+let darkView = ref(false);
+
+const setDarkView = () => {
+  const audio = new Audio('/audio/light-on:off.wav');
+  audio.play();
+  darkView.value = !darkView.value;
+};
 
 const soundEffect = elem => {
   let wav = '';
@@ -92,8 +103,11 @@ const soundEffect = elem => {
     case 'red':
       wav = '/audio/red.wav';
       break;
-    case 'speaker':
-      wav = '/audio/scifi.wav'
+    case 'on':
+      wav = '/audio/retro-start.wav'
+      break;
+    case 'off':
+      wav = '/audio/retro-over.wav'
       break;
     default:
       wav = '';
@@ -208,7 +222,8 @@ const orangeBtn = () => {
 };
 
 const speakerBtn = () => {
-  soundEffect('speaker');
+  let speaker = isPlaying.value ? 'off' : 'on';
+  soundEffect(speaker);
   let url = Object.values(tracks)[Math.abs(currentTrackIndex.value)];
 
   if (currentTrack.src === url) {

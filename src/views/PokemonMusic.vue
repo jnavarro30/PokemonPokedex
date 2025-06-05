@@ -1,47 +1,47 @@
 <script setup>
-import { ref, toRefs } from "vue";
+import { toRefs } from "vue";
 import pokemonTracks from "../assets/audio/tracks";
 
 const props = defineProps({
-  currentTrackIndex: Number
+  currentTrackIndex: Number,
+  darkView: Boolean,
+  setDarkView: Function
 });
-const { currentTrackIndex } = toRefs(props);
-
-const testFunc = () => {
-  console.log('the current track = ', currentTrackIndex)
-  console.log(pokemonTracks['Celadon City'])
-}
+const { currentTrackIndex, darkView, setDarkView } = toRefs(props);
 </script>
 
 <template>
-  <div class="absolute text-sm w-[82%] h-[35%] top-[27.5%] left-[8.5%] rounded-xl border-black border-2 grid grid-cols-2 p-3 justify-content items-center">
+  <div 
+    class="absolute text-sm w-[82%] h-[35%] top-[27.5%] left-[8.5%] rounded-xl border-black border-2 grid grid-cols-2 p-3 justify-content items-center"
+    :class="darkView ? 'bg-black' : 'bg-white'"
+    @click="setDarkView"
+  >
     <div
       v-for="(url, name, index) in pokemonTracks"
-      class="track"
-      :class="currentTrackIndex === -index ? 'selected' : ''"
+      class="text-center text-sm"
+      :class="darkView ? 'text-white' : '', currentTrackIndex === -index ? (darkView ? 'dark-selected' : 'light-selected') : ''"
       :key="index"
-      @click="testFunc"
     >
       {{ name }}
     </div>
   </div>
-  <!-- <div class="absolute w-[82%] h-[35%] top-[27.5%] left-[8.5%] rounded-xl border-black border-2 flex flex-col justify-content items-center">
-    <span class="text-2xl p-[5rem] h-[100%] w-[100%] bg-yellow-500 rounded-xl">COMING SOON</span>
-  </div> -->
 </template>
 
 <style scoped>
-.track {
-  padding: 0.2rem;
+.light-selected {
+  color: blue;
+  text-shadow:
+    -1px -1px 0 yellow,
+     1px -1px 0 yellow,
+    -1px  1px 0 yellow,
+     1px  1px 0 yellow;
 }
-.selected {
-  color: red;
-  font-weight: bolder;
-  text-shadow: 2px 2px 10px yellow;
-}
-@media (max-width: 380px) {
-  .track {
-    padding: 0;
-  }
+.dark-selected {
+  color: yellow;
+  text-shadow:
+    -1px -1px 0 blue,
+     1px -1px 0 blue,
+    -1px  1px 0 blue,
+     1px  1px 0 blue;
 }
 </style>
