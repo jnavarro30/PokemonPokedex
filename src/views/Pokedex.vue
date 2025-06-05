@@ -81,8 +81,7 @@ let userInput = ref("");
 let darkView = ref(false);
 
 const setDarkView = () => {
-  const audio = new Audio('/audio/light-on:off.wav');
-  audio.play();
+  soundEffect('light');
   darkView.value = !darkView.value;
 };
 
@@ -108,6 +107,9 @@ const soundEffect = elem => {
       break;
     case 'off':
       wav = '/audio/retro-over.wav'
+      break;
+    case 'light':
+      wav = '/audio/light-on:off.wav'
       break;
     default:
       wav = '';
@@ -212,6 +214,7 @@ const redBtn = () => {
   pokemonParam.value = 1;
   musicView.value = false;
   classicView.value = false;
+  darkView.value = false;
   userInput.value = "";
   setCurrentTrackIndex(0);
 };
