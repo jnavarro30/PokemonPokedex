@@ -58,6 +58,7 @@
       :value="userInput"
       @input="(event) => (userInput = event.target.value)"
       @click="inputField"
+      @keydown.enter="blueBtn"
       placeholder="Name/ID"
     />
   </div>
