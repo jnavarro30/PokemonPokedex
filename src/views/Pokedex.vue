@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative h-98/100 w-96/100 bg-[length:100%_100%] border-5 rounded-xl bg-[url('../assets/images/pokedex.png')]"
+    class="relative h-98/100 w-96/100 max-w-[500px] bg-[length:100%_100%] border-5 rounded-xl bg-[url('../assets/images/pokedex.png')]"
   >
     <PokemonData
       v-if="!musicView"
@@ -9,7 +9,7 @@
       :darkView="darkView"
       :setDarkView="setDarkView"
     />
-    <PokemonMusic 
+    <PokemonMusic
       v-else
       :currentTrackIndex="currentTrackIndex"
       :darkView="darkView"
@@ -82,41 +82,43 @@ let userInput = ref("");
 let darkView = ref(false);
 
 const setDarkView = () => {
-  soundEffect('light');
+  soundEffect("light");
   darkView.value = !darkView.value;
 };
 
-const soundEffect = elem => {
-  let wav = '';
-  switch(elem) {
-    case 'dpad':
-      wav = "/audio/dpad.wav";
+const soundEffect = (elem) => {
+  const baseAudioUrl = (fileName) =>
+    `${import.meta.env.BASE_URL}audio/${fileName}`;
+  let wav = "";
+  switch (elem) {
+    case "dpad":
+      wav = baseAudioUrl("dpad.wav");
       break;
-    case 'blue':
-      wav = '/audio/blue.wav';
+    case "blue":
+      wav = baseAudioUrl("blue.wav");
       break;
-    case 'orange': 
-    case 'green': 
-    case 'input':
-      wav = '/audio/orange-green.wav';
+    case "orange":
+    case "green":
+    case "input":
+      wav = baseAudioUrl("orange-green.wav");
       break;
-    case 'red':
-      wav = '/audio/red.wav';
+    case "red":
+      wav = baseAudioUrl("red.wav");
       break;
-    case 'on':
-      wav = '/audio/retro-start.wav'
+    case "on":
+      wav = baseAudioUrl("retro-start.wav");
       break;
-    case 'off':
-      wav = '/audio/retro-over.wav'
+    case "off":
+      wav = baseAudioUrl("retro-over.wav");
       break;
-    case 'light':
-      wav = '/audio/light-on:off.wav'
+    case "light":
+      wav = baseAudioUrl("light-on:off.wav");
       break;
     default:
-      wav = '';
+      wav = "";
   }
   new Audio(wav).play();
-}
+};
 
 const setPokemonParam = (value) => {
   if (value < 1) return;
@@ -154,23 +156,24 @@ const fetchPokemon = async () => {
 
 const setCurrentTrackIndex = (index, direction) => {
   currentTrackIndex.value = index;
-  if(!direction) return;
+  if (!direction) return;
 
   if (direction === "up") {
-    if(currentTrackIndex.value === 0 || currentTrackIndex.value === -1) return;
-    soundEffect('dpad');
+    if (currentTrackIndex.value === 0 || currentTrackIndex.value === -1) return;
+    soundEffect("dpad");
     currentTrackIndex.value += 2;
   } else if (direction === "right") {
-    if(currentTrackIndex.value % 2 !== 0) return;
-    soundEffect('dpad');
+    if (currentTrackIndex.value % 2 !== 0) return;
+    soundEffect("dpad");
     currentTrackIndex.value -= 1;
   } else if (direction === "down") {
-    if(currentTrackIndex.value === -8 || currentTrackIndex.value === -9) return;
-    soundEffect('dpad');
+    if (currentTrackIndex.value === -8 || currentTrackIndex.value === -9)
+      return;
+    soundEffect("dpad");
     currentTrackIndex.value -= 2;
   } else if (direction === "left") {
-    if(currentTrackIndex.value % 2 === 0) return;
-    soundEffect('dpad');
+    if (currentTrackIndex.value % 2 === 0) return;
+    soundEffect("dpad");
     currentTrackIndex.value += 1;
   } else {
     throw Error("Enter a valid argument: up, down, left or right.");
@@ -180,11 +183,11 @@ const setCurrentTrackIndex = (index, direction) => {
 const controllerDpad = (direction) => {
   if (!musicView.value) {
     if (direction === "up" || direction === "right") {
-      soundEffect('dpad');
+      soundEffect("dpad");
       setPokemonParam(pokemonParam.value + 1);
     } else if (direction === "down" || direction === "left") {
       if (pokemonParam.value === 1) return;
-      soundEffect('dpad');
+      soundEffect("dpad");
       setPokemonParam(pokemonParam.value - 1);
     } else {
       throw Error("Enter a valid argument: up, down, left or right.");
@@ -196,22 +199,22 @@ const controllerDpad = (direction) => {
 
 const blueBtn = () => {
   if (userInput.value === "") return;
-  soundEffect('blue');
+  soundEffect("blue");
   fetchPokemon();
   userInput.value = "";
 };
 
 const greenBtn = () => {
-  soundEffect('green');
+  soundEffect("green");
   classicView.value = !classicView.value;
 };
 
 const inputField = (event) => {
-  soundEffect('input');
+  soundEffect("input");
 };
 
 const redBtn = () => {
-  soundEffect('red');
+  soundEffect("red");
   pokemonParam.value = 1;
   musicView.value = false;
   classicView.value = false;
@@ -221,12 +224,12 @@ const redBtn = () => {
 };
 
 const orangeBtn = () => {
-  soundEffect('orange');
+  soundEffect("orange");
   musicView.value = !musicView.value;
 };
 
 const speakerBtn = () => {
-  let speaker = isPlaying.value ? 'off' : 'on';
+  let speaker = isPlaying.value ? "off" : "on";
   soundEffect(speaker);
   let url = Object.values(tracks)[Math.abs(currentTrackIndex.value)];
 

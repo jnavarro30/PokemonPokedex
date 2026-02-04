@@ -1,35 +1,43 @@
-# .
+# Pokemon Pokedex
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 + Vite Pokedex UI.
 
-## Recommended IDE Setup
+## Local development
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+````sh
+npm install
+# Pokemon Pokedex
 
-## Customize configuration
+Vue 3 + Vite Pokedex UI.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Local development
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
-```
+````
 
-### Compile and Minify for Production
+## Build
 
 ```sh
 npm run build
+npm run preview
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Deploy (GitHub Pages via gh-pages)
+
+This repo is set up to deploy using the `gh-pages` branch.
+
+1. Create an empty repo on GitHub and push this project.
+2. In GitHub: **Settings → Pages → Build and deployment → Source** select **Deploy from a branch**.
+3. Choose branch `gh-pages` and folder `/ (root)`.
+
+Deploy from your machine:
 
 ```sh
-npm run test:unit
+npm run deploy
 ```
+
+Your site will be available at:
+
+`https://jnavarro30.github.io/pokemon-pokedex/`
